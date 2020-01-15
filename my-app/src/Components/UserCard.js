@@ -1,27 +1,42 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Profile = styled.p`
+const Profile = styled.a`
     text-decoration: none;
+    color: black;
 `
 
-const UserCard = props => {
+const UserCard = (props) => {
     console.log(props);
-    return (
-    <div className="card">
-        <img src={props.avatar_url} />
-        <div className="card-info">
-            <h3 className="name">{props.name}</h3>
-            <p className="username">{props.login}</p>
-            <p>Location: {props.location}</p>
-            <Profile>Profile:  
-                <a href={props.html_url}>{props.html_url}</a>
-            </Profile>
-            <p>Followers: {props.followers}</p>
-            <p>Following: {props.following}</p>
-            <p>Bio: {props.bio}</p>
+
+    return ( 
+    <>
+        <div className="userProfile">
+        <div className="singleUser">
+        <div className="subSingleUser">
+            <p>
+                <Profile
+                className="userName" 
+                href={props.myUser.html_url} 
+                target="_blank" 
+                rel="noopener noreferrer"
+                >
+                { props.myUser.name }
+                </Profile>
+            </p>
+            <img src={props.myUser.avatar_url} alt="profile picture" />
+        <div className="other-info">
+            <p className="username">{props.myUser.login}</p>
+            <p>Location: {props.myUser.location}</p>
+            <p>Followers: {props.myUser.followers}</p>
+            <p>Following: {props.myUser.following}</p>
+            <p>Bio: {props.myUser.bio}</p>
         </div>
     </div>
-    );
-}
+    </div>
+    </div>
+    </>
+    )
+};
+
 export default UserCard;

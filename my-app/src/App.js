@@ -1,45 +1,53 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import UserCard from "./Components/UserCard"
+
 import './App.css';
+
+import UserCard from "./Components/UserCard";
+// import SearchForm from "./Components/SearchForm";
+
 
 class App extends Component {
   
   state = {
+    myUser : [],
     followers: [],
+    // searchText: ""
   }
 
   componentDidMount() {
     axios
-      .get("https://api.github.com/users/KParrish193")
+      .get('https://api.github.com/users/KParrish193')
       .then(response => {
-          console.log(response.data);
-          this.setState(response.data);
-      // axios.get("https://api.github.com/users/KParrish193/followers")
-      // .then(response => {
-      //   response.data.forEach(item => {
-      //   axios.get(item.url)
-      //     .then(response => {
-      //       console.log(response.data);
-      //       this.setState(response.data);
-      //     })
-      //   })
-      // })
-      // .catch(error => {
-      // console.log("The data was not returned", error);
-      // })
+          console.log(`user data from CDM`, response);
+          this.setState({
+            myUser : response.data
+          })
       })
-      .catch(error => {
-        console.log("The data was not returned", error);
+        .catch(error => {
+            console.log("The data was not returned", error);
+      })
+  
+    axios
+      .get('https://api.github.com/users/KParrish193/followers')
+      .then(response => {
+          console.log(`followers initial`, response.data);
+          this.setState({ 
+            followers : response.data
+          });
+      })
+        .catch(error => {
+          console.log("The data was not returned", error);
       });
   }
 
   render() {
-
       return (
       <div className="App">
+        <h2>GitHub User Cards</h2>
         <UserCard 
-          props = {this.state}
+          myUser = {this.state.myUser}
+          followers = {this.state.followers}
         />
       </div>
     );
