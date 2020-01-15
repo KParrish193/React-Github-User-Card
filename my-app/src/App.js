@@ -4,15 +4,12 @@ import axios from 'axios';
 import './App.css';
 
 import UserCard from "./Components/UserCard";
-// import SearchForm from "./Components/SearchForm";
-
 
 class App extends Component {
   
   state = {
     myUser : [],
     followers: [],
-    // searchText: ""
   }
 
   componentDidMount() {
